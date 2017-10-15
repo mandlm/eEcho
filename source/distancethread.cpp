@@ -2,7 +2,7 @@
 #include <wiringPi.h>
 
 volatile unsigned int timestampHigh = 0;
-volatile unsigned int timestampLow = 0;
+volatile unsigned int pulseLength = 0;
 
 DistanceThread::DistanceThread()
 {
@@ -19,9 +19,10 @@ void DistanceThread::run()
         {
             timestampHigh = micros();
         }
-        else
+        else if (timestampHigh != 0)
         {
-            timestampLow = micros();
+			pulseLength = micros() - timestampHigh;
+			timestampHigh = 0;
         }
     });
 
@@ -32,10 +33,9 @@ void DistanceThread::run()
         digitalWrite(m_triggerPin, LOW);
         delayMicroseconds(40);
 
-        unsigned int delayUS = timestampLow - timestampHigh;
-        if (delayUS < 25e3)
+        if (pulseLength < 25e3)
         {
-            emit distanceUpdated(delayUS / 0.58);
+            emit distanceUpdated(pulseLength / 0.58);
         }
 
         delay(100);
