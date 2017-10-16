@@ -1,5 +1,6 @@
 #pragma once
 
+#include "led.h"
 #include <QThread>
 
 class BlinkThread : public QThread
@@ -7,10 +8,11 @@ class BlinkThread : public QThread
     Q_OBJECT
 
 private:
-    const int m_blinkPin = 15;
+	Led m_led;
 
 public:
-    BlinkThread();
+	BlinkThread() = delete;
+	BlinkThread(unsigned int pin);
 
 protected:
     void run() override;

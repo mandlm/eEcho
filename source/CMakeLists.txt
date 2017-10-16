@@ -15,7 +15,9 @@ add_executable(${PROJECT_NAME}
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    blinkthread.cpp
+	led.cpp
+	led.h
+	blinkthread.cpp
     blinkthread.h
     distancethread.cpp
     distancethread.h
