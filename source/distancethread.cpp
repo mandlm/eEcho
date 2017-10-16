@@ -28,16 +28,49 @@ void DistanceThread::run()
 
     while (true)
     {
-        digitalWrite(m_triggerPin, HIGH);
-        delayMicroseconds(10);
-        digitalWrite(m_triggerPin, LOW);
-        delayMicroseconds(40);
+		std::vector<double> values;
+		for (int i = 0; i < 5; ++i)
+		{
+	        digitalWrite(m_triggerPin, HIGH);
+    	    delayMicroseconds(10);
+        	digitalWrite(m_triggerPin, LOW);
+	        delayMicroseconds(40);
 
-        if (pulseLength < 25e3)
-        {
-            emit distanceUpdated(pulseLength / 0.58);
-        }
+    	    if (pulseLength < 25e3)
+        	{
+            	values.push_back(pulseLength);	
+	        }
+	  
+			delay(10);
+		}
 
-        delay(100);
+		if (!values.empty())
+		{
+			emit distanceUpdated(median(values) / 0.58);
+		}
+
+		delay(100);
     }
+}
+
+template<typename VALUE_TYPE>
+double DistanceThread::median(std::vector<VALUE_TYPE> values) const
+{
+	if (values.size() == 0)
+	{
+		return 0.0;
+	}
+
+	size_t centerIndex = values.size() / 2;
+	std::nth_element(values.begin(), values.begin() + centerIndex, values.end());
+	
+	if (values.size() % 2 == 1)
+	{
+		return values[centerIndex];
+	}
+	else
+	{
+		std::nth_element(values.begin(), values.begin() + centerIndex + 1, values.end());
+		return (values[centerIndex] + values[centerIndex + 1]) / 2.0;
+	}
 }
