@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(blinkThread, &BlinkThread::ledOff, this, &MainWindow::ledOff);
     blinkThread->start();
 
-    DistanceThread *distanceThread = new DistanceThread();
+    DistanceThread *distanceThread = new DistanceThread(28, 29);
     connect(distanceThread, &DistanceThread::distanceUpdated, this, &MainWindow::distanceUpdated);
     distanceThread->start();
 }

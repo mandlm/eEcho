@@ -19,7 +19,10 @@ add_executable(${PROJECT_NAME}
 	led.h
 	blinkthread.cpp
     blinkthread.h
-    distancethread.cpp
+	median.h
+	hcsr04.cpp
+	hcsr04.h
+	distancethread.cpp
     distancethread.h
 )
 
