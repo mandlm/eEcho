@@ -7,7 +7,9 @@ DistanceThread::DistanceThread(unsigned int triggerPin, unsigned int echoPin)
 
 void DistanceThread::run()
 {
-    while (true)
+	m_hcsr04.run();
+
+	while (true)
     {
 		emit distanceUpdated(m_hcsr04.getDistance());
 		msleep(100);
