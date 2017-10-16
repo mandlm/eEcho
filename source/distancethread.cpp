@@ -29,7 +29,7 @@ void DistanceThread::run()
     while (true)
     {
 		std::vector<double> values;
-		for (int i = 0; i < 5; ++i)
+		for (int i = 0; i < 15; ++i)
 		{
 	        digitalWrite(m_triggerPin, HIGH);
     	    delayMicroseconds(10);
