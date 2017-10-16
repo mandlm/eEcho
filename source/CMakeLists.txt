@@ -11,7 +11,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-psabi")
 
 add_executable(${PROJECT_NAME}
-    main.cpp
+    qecho.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
