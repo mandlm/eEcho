@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include "hcsr04.h"
 #include <QThread>
 
 class DistanceThread : public QThread
@@ -8,18 +8,14 @@ class DistanceThread : public QThread
     Q_OBJECT
 
 private:
-    const int m_triggerPin = 28;
-    const int m_echoPin = 29;
+	HCSR04 m_hcsr04;
 
 public:
-    DistanceThread();
+	DistanceThread() = delete;
+    DistanceThread(unsigned int triggerPin, unsigned int echoPin);
 
 protected:
     void run() override;
-
-private:
-	template<typename VALUE_TYPE>
-	double median(std::vector<VALUE_TYPE> values) const;
 
 signals:
     void distanceUpdated(double distMeters);
