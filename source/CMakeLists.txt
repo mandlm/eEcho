@@ -8,6 +8,8 @@ find_package(Qt5Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-psabi")
+
 add_executable(${PROJECT_NAME}
     main.cpp
     mainwindow.cpp
