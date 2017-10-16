@@ -1,22 +1,21 @@
 #include "blinkthread.h"
-#include <wiringPi.h>
+#include "led.h"
 
-BlinkThread::BlinkThread()
+BlinkThread::BlinkThread(unsigned int pin)
+	: m_led(pin)
 {
-    wiringPiSetup();
-    pinMode(m_blinkPin, OUTPUT);
 }
 
 void BlinkThread::run()
 {
     while (true)
     {
-        digitalWrite(m_blinkPin, HIGH);
+       	m_led.on(); 
         emit ledOn();
-        delay(500);
+        msleep(500);
 
-        digitalWrite(m_blinkPin, LOW);
+		m_led.off();
         emit ledOff();
-        delay(500);
+        msleep(500);
     }
 }

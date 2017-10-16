@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->progressBar->setFormat("%v cm");
     ui->progressBar->setValue(0);
 
-    BlinkThread *blinkThread = new BlinkThread();
+    BlinkThread *blinkThread = new BlinkThread(15);
     connect(blinkThread, &BlinkThread::ledOn, this, &MainWindow::ledOn);
     connect(blinkThread, &BlinkThread::ledOff, this, &MainWindow::ledOff);
     blinkThread->start();
