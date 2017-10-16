@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <QThread>
 
 class DistanceThread : public QThread
@@ -15,6 +16,10 @@ public:
 
 protected:
     void run() override;
+
+private:
+	template<typename VALUE_TYPE>
+	double median(std::vector<VALUE_TYPE> values) const;
 
 signals:
     void distanceUpdated(double distMeters);
